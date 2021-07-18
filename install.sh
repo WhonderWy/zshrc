@@ -3,10 +3,27 @@
 echo "Upgrading System"
 sudo apt update
 sudo apt upgrade -y
+
 echo "Installing usual"
-sudo apt install -y git build-essential clang llvm python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind
-sudo apt install python3-pip ffmpeg firefox youtube-dl x264 x265 vlc mpv texlive
+sudo apt install -y git build-essential clang llvm python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng clangd clang-format cmake hashcat openssh-server
 #etc
+cd ~
+
+python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak
+
+
+if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
+  echo "vscode will not be installed in WSL typically."
+else
+  echo "Installing vscode."
+  wget "https://code.visualstudio.com/sha/download?build=stable&os=linux-deb-x64" -O ~/downloads/vscode.deb
+  sudo dpkg -i ~/downloads/vscode.deb
+fi
+
+echo "These will require interaction"
+echo "Installing extras"
+sudo apt install python3-pip ffmpeg firefox youtube-dl x264 x265 vlc texlive aegisub asciinema imagemagick
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 echo "Installing terminal themes"
 # git clone https://github.com/ohmyzsh/ohmyzsh.git
@@ -23,9 +40,8 @@ cd ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
 make install
 source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
-cd ~
-
-python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak
+echo "Installing Homebrew..."
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 neofetch
 echo "Should be done now! Make sure you copy zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
