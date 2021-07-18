@@ -4,7 +4,9 @@ echo "Upgrading System"
 sudo apt update
 sudo apt upgrade -y
 echo "Installing usual"
-sudo apt install git build-essential clang llvm python3 zsh curl wget aria2 fonts-noto direnv #etc
+sudo apt install -y git build-essential clang llvm python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind
+sudo apt install python3-pip ffmpeg firefox youtube-dl x264 x265 vlc mpv texlive
+#etc
 
 echo "Installing terminal themes"
 # git clone https://github.com/ohmyzsh/ohmyzsh.git
@@ -23,4 +25,7 @@ source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 cd ~
 
+python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak
+
+neofetch
 echo "Should be done now! Make sure you copy zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
