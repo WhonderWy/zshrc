@@ -5,11 +5,11 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Installing usual"
-sudo apt install -y git build-essential clang llvm python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng clangd clang-format cmake hashcat openssh-server
+sudo apt install -y git build-essential clang llvm clangd clang-format lld python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng cmake hashcat openssh-server
 #etc
 cd ~
 
-python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak
+python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak cppman
 
 
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
@@ -20,9 +20,11 @@ else
   sudo dpkg -i ~/downloads/vscode.deb
 fi
 
-echo "These will require interaction"
+sudo apt update
+
+echo "These may require interaction"
 echo "Installing extras"
-sudo apt install python3-pip ffmpeg firefox youtube-dl x264 x265 vlc texlive aegisub asciinema imagemagick
+sudo apt install =y python3-pip ffmpeg firefox youtube-dl x264 x265 vlc texlive aegisub asciinema imagemagick
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 echo "Installing terminal themes"
