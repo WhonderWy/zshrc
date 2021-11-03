@@ -5,10 +5,11 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Installing usual"
-sudo apt install -y git build-essential clang llvm clangd clang-format lld python3 zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng cmake hashcat openssh-server
+sudo apt install -y git build-essential clang llvm clangd clang-format lld python3 python3-pip zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng cmake hashcat openssh-server
 #etc
 cd ~
 
+python3 -m ensurepip --upgrade
 python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak cppman
 
 
