@@ -25,7 +25,7 @@ sudo apt update
 
 echo "These may require interaction"
 echo "Installing extras"
-sudo apt install =y python3-pip ffmpeg firefox youtube-dl x264 x265 vlc texlive aegisub asciinema imagemagick
+sudo apt install -y ffmpeg firefox youtube-dl x264 x265 vlc texlive aegisub asciinema imagemagick
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
 echo "Installing terminal themes"
