@@ -10,8 +10,8 @@ sudo apt install -y git build-essential clang llvm clangd clang-format lld pytho
 cd ~
 
 python3 -m ensurepip --upgrade
-python3 -m pip install --upgrade --user pip beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak cppman
-
+python3 -m pip install --upgrade --user pip 2to3 beautifulsoup4 youtube-dl yapf rope wheel black thefuck Sublist3r six pygame pipx lxml har2requests Flask Flask-Cors Flask-unsign flake8 ffmpeg autopep8 argon2-cffi asciinema anitopy bitarray bleak cppman
+python3 -m pip install --upgrade --user dnspython discord.py mariadb pandoc pillow passlib tqdm 
 
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
   echo "vscode will not be installed in WSL typically."
