@@ -47,4 +47,4 @@ echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
 neofetch
-echo "Should be done now! Make sure you copy zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
+echo "Should be done now! Make sure you copy zshenv zlogin and profile zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
