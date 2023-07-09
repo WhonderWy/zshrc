@@ -152,6 +152,7 @@ export HISTIGNORE="ls"
 # Example aliases
 alias zshconfig="code ~/.zshrc"
 alias ohmyzsh="code ~/.oh-my-zsh"
+alias diffogram="git --no-pager diff --no-index --histogram"
 # My aliases
 alias wkupdate="sudo apt-fast update && sudo apt-fast upgrade -y && sudo apt autoremove -y"
 alias newmake="make clean && make"
