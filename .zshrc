@@ -120,7 +120,7 @@ fi
 
 # Compilation flags
 export ARCHFLAGS="-arch x86_64"
-export CC="/usr/bing/clang"
+export CC="/usr/bin/clang"
 export CXX="/usr/bin/clang++"
 
 # ssh
