@@ -207,6 +207,25 @@ function unssa() {
   fi
 }
 
+function start_agent() {
+  echo "Initialising new SSH agent..."
+  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+  echo Succeeded
+  chmod 600 "${SSH_ENV}"
+  . "${SSH_ENV}" > /dev/null
+  /usr/bin/ssh-add;
+}
+
+if [[ $(uname -a) =~ "arch" ]]; then
+  function aur_update() {
+    local yay-path="~/.cache/yay"
+    for arg in "$@"; do
+      cd "${yay_path}${arg}"
+      makepkg -i
+    done
+  }
+fi
+
 function awsupdate() {
   curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip' -o 'awscliv2.zip"
   unzip awscliv2.zip
