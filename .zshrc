@@ -247,6 +247,135 @@ function transfer() {
   cat $tmpfile; rm -f $tmpfile;
 }
 
+
+# Example usage:
+# add_torrent_rule "AnimeName" "MustContain" "MustNotContain" 1
+add_torrent_rule() {
+    local japanese_name="$1"
+    local must_contain="$2"
+    local must_not_contain="${3:-}"
+    local season_number="${4:-1}"
+
+    local rule_path="$HOME/.config/qBittorrent/rss/download_rules.json"
+
+    if [ -z "$must_not_contain" ]; then
+        must_not_contain=""
+    fi
+    if [ -z "$season_number" ]; then
+        season_number=1
+    fi
+
+    local existing=$(cat "$rule_path")
+    local obj=$(jq -n \
+        --arg mustContain "$must_contain 1080p" \
+        --arg mustNotContain "$must_not_contain" \
+        --arg savePath "G:/$japanese_name/S$season_number" \
+        '{
+            addPaused: null,
+            affectedFeeds: [
+                "https://subsplease.org/rss",
+                "https://nyaa.si/?page=rss&u=subsplease",
+                "https://subsplease.org/rss/?t&r=1080"
+            ],
+            assignedCategory: "",
+            enabled: true,
+            episodeFilter: "",
+            ignoreDays: 0,
+            lastMatch: "",
+            mustContain: $mustContain,
+            mustNotContain: $mustNotContain,
+            previouslyMatchedEpisodes: [],
+            priority: 0,
+            savePath: $savePath,
+            smartFilter: false,
+            torrentContentLayout: "null",
+            torrentParams: {
+                category: "",
+                download_limit: -1,
+                download_path: "",
+                inactive_seeding_time_limit: -2,
+                operating_mode: "AutoManaged",
+                ratio_limit: -2,
+                save_path: $savePath,
+                seeding_time_limit: -2,
+                skip_checking: false,
+                tags: [],
+                upload_limit: -1,
+                use_auto_tmm: false
+            },
+            useRegex: false
+        }')
+
+    existing=$(echo "$existing" | jq --argjson obj "$obj" '. + {("subsplease " + $obj.savePath): $obj}')
+    echo "$existing" | jq . > "$rule_path"
+}
+
+
+# Example usage:
+# lsDate "/path/to/directory"
+lsDate() {
+    local args=("$@")
+    if [ ${#args[@]} -eq 0 ]; then
+        args=(".")
+    fi
+    for arg in "${args[@]}"; do
+        find "$arg" -type d -exec stat -c "%n %w" {} + | sort -k2
+    done
+}
+
+
+# Example usage:
+# extract_subtitles
+extract_subtitles() {
+    for file in *.mkv; do
+        echo "$file"
+        /path/to/mkvinfo "$file" -r file.txt
+
+        # Extract the track number using awk and grep
+        track=$(grep -A 2 'Track type: subtitles' file.txt | awk -F ')' '/Track number:/ {print $1}')
+
+        name="${file%.*}"
+        /path/to/mkvextract tracks "$file" "${track}:${name}.track${track}.ass"
+    done
+}
+
+
+
+# Example usage:
+# new_anime_folder "AnimeName" 1 "SeasonSubtitle"
+new_anime_folder() {
+    local anime_name="$1"
+    local season_number="${2:-1}"
+    local season_subtitle="$3"
+
+    if [ -n "$anime_name" ]; then
+        local path="G:/$anime_name"
+
+        if [ ! -d "$path" ]; then
+            mkdir -p "$path"
+        fi
+
+        path="$path/S$season_number"
+
+        if [ -n "$season_subtitle" ]; then
+            path="$path - $season_subtitle"
+        fi
+
+        if [ ! -d "$path" ]; then
+            mkdir -p "$path"
+        fi
+
+        open "$path"
+
+        if [ -d "$path" ]; then
+            cp "G:/temp/playnext.cmd" "$path/playnext.cmd"
+            [ -f "$path/playnext.cmd" ]
+        fi
+    fi
+}
+
+
+
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 _evalcache direnv hook zsh
