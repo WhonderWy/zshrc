@@ -172,6 +172,7 @@ alias tcn="mv --force -t ~/.local/share/Trash"
 alias foliate="com.github.johnfactotum.Foliate &" # Assumes foliate is installed via snap store or similar
 alias cwd="echo 'Correct way to print current working directory is PWD.' && pwd"
 alias open="xdg-open"
+alias unzipJp="unzip -O shift-jis $1"
 # WSL
 if grep -qEi "(Microsoft|WSL)" /proc/version &> /dev/null ; then
     alias here="explorer.exe ."
