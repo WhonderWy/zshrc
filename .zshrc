@@ -375,7 +375,65 @@ new_anime_folder() {
     fi
 }
 
+#!/bin/bash
 
+# Function to extract images from EPUB files
+# Example usage
+# extract_epub_images file1.epub file2.epub
+extract_epub_images() {
+    epub_files=("$@") # Accept EPUB files as arguments
+    ebook_convert_path="ebook-convert"
+    pdfimages_path="pdfimages"
+
+    # Check for required tools
+    if ! command -v $ebook_convert_path &> /dev/null; then
+        echo "Error: $ebook_convert_path is not in the system PATH. Please ensure Calibre is installed and the path is set."
+        return 1
+    fi
+
+    if ! command -v $pdfimages_path &> /dev/null; then
+        echo "Error: $pdfimages_path is not in the system PATH. Please ensure Poppler Utils is installed and the path is set."
+        return 1
+    fi
+
+    # Determine EPUB files to process
+    if [ ${#epub_files[@]} -eq 0 ]; then
+        # If no arguments, find all EPUB files in the current directory
+        epub_files=(*.epub)
+    fi
+
+    echo "Found EPUB files: ${epub_files[*]}"
+
+    # Process each EPUB file
+    for file in "${epub_files[@]}"; do
+        if [ ! -f "$file" ]; then
+            echo "Warning: File not found: $file"
+            continue
+        fi
+
+        base_name=$(basename "$file" .epub)
+        pdf_file="${base_name}.pdf"
+        output_dir="./${base_name}"
+
+        # Convert EPUB to PDF
+        if [ ! -f "$pdf_file" ]; then
+            echo "Converting '$file' to PDF..."
+            "$ebook_convert_path" "$file" "$pdf_file"
+        else
+            echo "PDF already exists. Extracting from $pdf_file..."
+        fi
+
+        # Extract images from the generated PDF
+        if [ -f "$pdf_file" ]; then
+            echo "Extracting images from '$pdf_file'..."
+            mkdir -p tmp
+            "$pdfimages_path" -j -png -p "$pdf_file" tmp/
+            mv tmp "$output_dir"
+        else
+            echo "Warning: Failed to convert EPUB to PDF: $file"
+        fi
+    done
+}
 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
