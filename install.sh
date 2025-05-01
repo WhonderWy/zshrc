@@ -5,7 +5,7 @@ sudo apt update
 sudo apt upgrade -y
 
 echo "Installing usual"
-sudo apt install -y git build-essential clang llvm clangd clang-format lld python3 python3-pip zsh curl wget aria2 fonts-noto direnv neofetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng cmake hashcat openssh-server
+sudo apt install -y git build-essential clang llvm clangd clang-format lld python3 python3-pip zsh curl wget aria2 fonts-noto direnv fastfetch valgrind openssh socat qemu qbittorrent mpv aircrack-ng cmake hashcat openssh-server
 #etc
 cd ~
 
@@ -49,5 +49,5 @@ git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
-neofetch
+fastfetch
 echo "Should be done now! Make sure you copy zshenv zlogin and profile zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
