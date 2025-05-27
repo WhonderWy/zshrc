@@ -1,0 +1,25 @@
+[Desktop Entry]
+Type=Service
+X-KDE-ServiceTypes=KonqPopupMenu/Plugin
+MimeType=inode/directory;
+Actions=PlayNext;ContinueFromNext;PlayAllFromStart;
+X-KDE-Priority=TopLevel
+X-KDE-Submenu=Playlist Manager
+X-KDE-Submenu[en]=Playlist Manager
+X-KDE-Priority=TopLevel
+
+[Desktop Action PlayNext]
+Name=Play Next
+Exec=$HOME/bin/playlist_manager/venv/bin/python3 $HOME/bin/playlist_manager/playnext.py --directory %f
+Icon=media-playback-start
+InitialPreference=100
+
+[Desktop Action ContinueFromNext]
+Name=Continue from Next
+Exec=$HOME/bin/playlist_manager/venv/bin/python3 $HOME/bin/playlist_manager/playnext.py --directory %f --continue
+Icon=media-playlist-normal
+
+[Desktop Action PlayAllFromStart]
+Name=Play All from Start
+Exec=$HOME/bin/playlist_manager/venv/bin/python3 $HOME/bin/playlist_manager/playnext.py --directory %f --start
+Icon=media-playlist-repeat

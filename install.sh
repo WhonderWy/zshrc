@@ -49,5 +49,13 @@ git clone https://github.com/mroth/evalcache ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/
 echo "Installing Homebrew..."
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 
+# Adding Playlist Manager
+mkdir -P $HOME/bin/playlist_manager/.
+ln -sn playnext.py $HOME/bin/playlist_manager/.
+mkdir -P $HOME/.local/share/kio/servicemenus/
+envsubst < playlistmanager.desktop > $HOME/.local/share/kio/servicemenus/playlistmanager.desktop
+
+
+
 fastfetch
 echo "Should be done now! Make sure you copy zshenv zlogin and profile zshrc file to replace after starting up oh-my-zsh and powerlevel10k"
